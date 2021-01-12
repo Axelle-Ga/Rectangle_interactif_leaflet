@@ -3,15 +3,39 @@ var mymap;
 /* initMap met en place le fond de carte en spécifiant les limites de zooms possibles et,
 bien entendu, la source du fond de carte désiré, ici, OpenStreetMap. */
 function initMap(){
-    mymap= L.map('map').setView([56.1210604, -3.021240],5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-	minZoom: 1,
-	maxZoom: 19,
-	attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-}).addTo(mymap);
+
+    var crs = new L.Proj.CRS('EPSG:3006',
+	'+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+	{
+		resolutions: [
+			8192, 4096, 2048, 1024, 512, 256, 128,
+			64, 32, 16, 8, 4, 2, 1, 0.5
+		],
+		origin: [0, 0]
+    })
+    
+    mymap= L.map('map', {
+		crs: crs,
+	}
+    ).setView([56.1210604, -3.021240],5);
 }
 
 initMap();
+
+console.log("map crs: " + mymap.options.crs.code)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // _________Test event sur un polygone quelconque________________________
@@ -53,6 +77,8 @@ polygones.addLayer(polygon);
 
 polygones.addTo(mymap);
 
+console.log(polygon)
+
 function majPolygone(couche, polygon){
     console.log("draggend");
     var latlngs = [];
@@ -77,6 +103,115 @@ mark_hg.addEventListener("drag",function() {majPolygone(couche, polygon)});
 
 
 
+
+
+
+
+
+
+
+// Test rectangle avec les lignes geodesic
+
+
+function boxGeodesic(point1_lat, point1_lng, point2_lat, point2_lng, color='green') {
+    var rectangle2 = creationRectangleGeodesic(point1_lat, point1_lng, point2_lat, point2_lng, color)
+    var coins =creationCoinsGeodesic(rectangle2)
+    var geobox = coucheGeodesic(rectangle2, coins[0], coins[1], coins[2],coins[3]);
+    coins[0].addEventListener("drag",function(event) {majRectangleGEO_hg(event, coins[0], coins[1], coins[2], coins[3], rectangle2)});
+    coins[1].addEventListener("drag",function(event) {majRectangleGEO_bg(event, coins[0], coins[1], coins[2], coins[3], rectangle2)});
+    coins[2].addEventListener("drag",function(event) {majRectangleGEO_hd(event, coins[0], coins[1], coins[2], coins[3], rectangle2)});
+    coins[3].addEventListener("drag",function(event) {majRectangleGEO_bd(event, coins[0], coins[1], coins[2], coins[3], rectangle2)});
+    return (geobox);
+}
+
+
+
+function creationCoinsGeodesic(rectangle2) {
+
+    var points = rectangle2.getBounds();
+
+    var coin_bg = L.marker([points._southWest.lat,points._southWest.lng],{draggable:'true'});
+    var coin_hg = L.marker([points._northEast.lat,points._southWest.lng],{draggable:'true'});
+    var coin_hd = L.marker([points._northEast.lat,points._northEast.lng],{draggable:'true'});
+    var coin_bd = L.marker([points._southWest.lat,points._northEast.lng],{draggable:'true'});
+
+    coin_hg.bindPopup("Haut gauche");
+    coin_bg.bindPopup("Bas gauche");
+    coin_hd.bindPopup("Haut droit");
+    coin_bd.bindPopup("Bas droit");
+
+    return([coin_hg, coin_bg, coin_hd,coin_bd]);
+    
+}
+
+function coucheGeodesic(rectangle2, coin_hg, coin_bg, coin_hd,coin_bd) {
+    var coins = new L.featureGroup();
+
+    coins.addLayer(rectangle2);
+    coins.addLayer(coin_hd);
+    coins.addLayer(coin_bd);
+    coins.addLayer(coin_bg);
+    coins.addLayer(coin_hg);
+
+    return(coins);
+}
+
+function creationRectangleGeodesic(point1_lat, point1_lng, point2_lat, point2_lng, color) {
+
+    const rectangle2 = new L.Geodesic([[point1_lat, point1_lng],[point2_lat, point1_lng],[point2_lat, point2_lng],[point1_lat, point2_lng],[point1_lat, point1_lng]]);
+    
+    return(rectangle2);
+}
+
+function majRectangleGEO_bd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle2){
+    console.log(rectangle2);
+    rectangle2.setLatLngs([event.latlng,[event.latlng.lat,coin_hg.getLatLng().lng],coin_hg.getLatLng(),[coin_hg.getLatLng().lat,event.latlng.lng],event.latlng]);
+    coin_bg.setLatLng([event.latlng.lat, coin_hg.getLatLng().lng]);
+    coin_hd.setLatLng([coin_hg.getLatLng().lat, event.latlng.lng]);
+}
+
+function majRectangleGEO_hd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle2){
+    rectangle2.setLatLngs([event.latlng,[event.latlng.lat,coin_bg.getLatLng().lng],coin_bg.getLatLng(),[coin_bg.getLatLng().lat,event.latlng.lng],event.latlng]);
+    coin_bd.setLatLng([event.latlng.lat, coin_bg.getLatLng().lng]);
+    coin_hg.setLatLng([coin_bg.getLatLng().lat, event.latlng.lng]);
+}
+
+function majRectangleGEO_bg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle2){
+    rectangle2.setLatLngs([event.latlng,[event.latlng.lat,coin_hd.getLatLng().lng],coin_hd.getLatLng(),[coin_hd.getLatLng().lat,event.latlng.lng],event.latlng]);
+    coin_bd.setLatLng([event.latlng.lat, coin_hd.getLatLng().lng]);
+    coin_hg.setLatLng([coin_hd.getLatLng().lat, event.latlng.lng]);
+}
+
+function majRectangleGEO_hg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle2){
+    rectangle2.setLatLngs([event.latlng,[event.latlng.lat,coin_bd.getLatLng().lng],coin_bd.getLatLng(),[coin_bd.getLatLng().lat,event.latlng.lng],event.latlng]);
+    coin_bg.setLatLng([event.latlng.lat, coin_bd.getLatLng().lng]);
+    coin_hd.setLatLng([coin_bd.getLatLng().lat, event.latlng.lng]);
+}
+
+
+var boite = boxGeodesic(50.924586, 2.467774,48.876607, 0.699219);
+boite.addTo(mymap);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Adaptation du code précédent à un rectangle
 
 var coin = new L.featureGroup();
@@ -89,6 +224,12 @@ rectangle.addTo(mymap);
 
 var points = rectangle.getLatLngs();
 
+//test du plugin geodesic qui dessine des lignes géodésiques
+const geodesic = new L.Geodesic([points[0][0],points[0][1],points[0][2],points[0][3],points[0][0]]);
+
+geodesic.addTo(mymap);
+
+console.log(geodesic.getBounds());
 
 //On peut récupérer les limites du rectangle
 var bounds = rectangle.getBounds();
@@ -183,7 +324,28 @@ function majPostion(coin_hg, coin_bg, coin_hd,coin_bd) {
     document.getElementById("lng4").value = coin_hd.getLatLng().lng;
 }
 
-//Creation de la boite à partir d'une unique fonction
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//Creation de la boite rectangulaire à partir d'une unique fonction
 
 function box(point1_lat, point1_lng, point2_lat, point2_lng, color='green') {
     var rectangle = creationRectangle(point1_lat, point1_lng, point2_lat, point2_lng, color)

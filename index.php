@@ -11,6 +11,11 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet.geodesic"
+    integrity="sha512-5hu8xzx09aoq4eHRCNLXRAmwYNgsMzBSLj02kPAaD48G03otgNf7PIOJaHlchkK2kfTAMhO3oaTxX5HgniXb2g=="
+    crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.6.3/proj4.js"></script>
+    <script src="lib/proj4leaflet.js"></script>
   </head>
 
   <body>
