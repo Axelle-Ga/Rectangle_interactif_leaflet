@@ -15,5 +15,27 @@
 
   <body>
     <div id = map></div>
+    <form id="position" action="POST">
+    <div id="point1">
+      <label>Latitude 1:<input id="lat1" type="text"></label>
+      <label >Longitude 1:<input id="lng1" type="text"></label>
+    </div>
+    
+    <div id="point2">
+      <label>Latitude 2:<input id="lat2" type="text"></label>
+      <label >Longitude 2:<input id="lng2" type="text"></label>
+    </div>
+
+    <div id="point3">
+      <label>Latitude 3:<input id="lat3" type="text"></label>
+      <label >Longitude 3:<input id="lng3" type="text"></label>
+    </div>
+
+    <div id="point4">
+      <label>Latitude 4:<input id="lat4" type="text"></label>
+      <label >Longitude 4:<input id="lng4" type="text"></label>
+    </div>
+
+    </form>
     <script type="text/javascript" src="js/carte.js"></script>
   </body>
