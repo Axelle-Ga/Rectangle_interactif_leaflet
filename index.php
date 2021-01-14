@@ -42,5 +42,5 @@
     </div>
 
     </form>
-    <script type="text/javascript" src="js/carte.js"></script>
+    <script type="text/javascript" src="js/rectangle.js"></script>
   </body>
