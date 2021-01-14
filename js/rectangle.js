@@ -60,7 +60,9 @@ function rectangleInt(point1_lat, point1_lng, point2_lat, point2_lng, color='gre
 
 function creationRectangle(point1_lat, point1_lng, point2_lat, point2_lng, color, n) {
 
-    const rectangle = new L.polyline([[point1_lat, point1_lng],[point2_lat, point1_lng],[point2_lat, point2_lng],[point1_lat, point2_lng],[point1_lat, point1_lng]]);
+    latlngs = creerLatLng(L.latLng(point1_lat, point1_lng), L.latLng(point2_lat, point2_lng), n);
+
+    const rectangle = new L.polygon(latlngs, {color: color});
     
     return(rectangle);
 }
@@ -145,5 +147,5 @@ function creerLatLng(latlng1, latlng2, n) {
     return(latlngs)
 }
 
-var boite = rectangleInt(50.924586, 2.467774,48.876607, 0.699219);
+var boite = rectangleInt(55.924586, 20.467774,30.876607, 0.699219);
 boite.addTo(mymap);
