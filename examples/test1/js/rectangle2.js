@@ -19,7 +19,7 @@ function initMap(){
 		crs: crs,
 	}
     ).setView([56.1210604, -3.021240],5);
-/*    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    /*L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
       attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       minZoom:1,
       maxZoom: 18,
@@ -47,25 +47,17 @@ console.log("map crs: " + mymap.options.crs.code);
 // Rectangle avec des polylignes
 
 
-function rectangleInt(point1_lat, point1_lng, point2_lat, point2_lng, color='green', n = 100) {
-    var rectangle = creationRectangle(point1_lat, point1_lng, point2_lat, point2_lng, color, n)
-    var coins =creationCoins(rectangle)
+function rectangleInt(bounds) {
+    var rectangle = rectangleGeo(bounds);
+    var coins =creationCoins(rectangle);
     var geobox = couche(rectangle, coins[0], coins[1], coins[2],coins[3]);
-    coins[0].addEventListener("drag",function(event) {majRectangle_hg(event, coins[0], coins[1], coins[2], coins[3], rectangle, n)});
-    coins[1].addEventListener("drag",function(event) {majRectangle_bg(event, coins[0], coins[1], coins[2], coins[3], rectangle, n)});
-    coins[2].addEventListener("drag",function(event) {majRectangle_hd(event, coins[0], coins[1], coins[2], coins[3], rectangle, n)});
-    coins[3].addEventListener("drag",function(event) {majRectangle_bd(event, coins[0], coins[1], coins[2], coins[3], rectangle, n)});
+    coins[0].addEventListener("drag",function(event) {majRectangle_hg(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
+    coins[1].addEventListener("drag",function(event) {majRectangle_bg(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
+    coins[2].addEventListener("drag",function(event) {majRectangle_hd(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
+    coins[3].addEventListener("drag",function(event) {majRectangle_bd(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
     return (geobox);
 }
 
-function creationRectangle(point1_lat, point1_lng, point2_lat, point2_lng, color, n) {
-
-    latlngs = creerLatLng(L.latLng(point1_lat, point1_lng), L.latLng(point2_lat, point2_lng), n);
-
-    const rectangle = new L.polygon(latlngs, {color: color});
-    
-    return(rectangle);
-}
 
 function creationCoins(rectangle) {
 
@@ -99,53 +91,41 @@ function couche(rectangle, coin_hg, coin_bg, coin_hd,coin_bd) {
 
 
 
-function majRectangle_bd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle, n){
-    var latlngs = creerLatLng(event.latlng,coin_hg.getLatLng(), n);
-    rectangle.setLatLngs(latlngs);
+function majRectangle_bd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+    rectangle.setBounds([[event.latlng.lat,event.latlng.lng],[coin_hg.getLatLng().lat,coin_hg.getLatLng().lng]]);
     coin_bg.setLatLng([event.latlng.lat, coin_hg.getLatLng().lng]);
     coin_hd.setLatLng([coin_hg.getLatLng().lat, event.latlng.lng]);
 }
 
-function majRectangle_hd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle, n){
-    var latlngs = creerLatLng(event.latlng,coin_bg.getLatLng(), n);
-    rectangle.setLatLngs(latlngs);
+function majRectangle_hd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+    rectangle.setBounds([[event.latlng.lat,event.latlng.lng],[coin_bg.getLatLng().lat,coin_bg.getLatLng().lng]]);
     coin_bd.setLatLng([event.latlng.lat, coin_bg.getLatLng().lng]);
     coin_hg.setLatLng([coin_bg.getLatLng().lat, event.latlng.lng]);
 }
 
-function majRectangle_bg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle, n){
-    var latlngs = creerLatLng(event.latlng,coin_hd.getLatLng(), n);
-    rectangle.setLatLngs(latlngs);
+function majRectangle_bg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+    rectangle.setBounds([[event.latlng.lat,event.latlng.lng],[coin_hd.getLatLng().lat,coin_hd.getLatLng().lng]]);
     coin_bd.setLatLng([event.latlng.lat, coin_hd.getLatLng().lng]);
     coin_hg.setLatLng([coin_hd.getLatLng().lat, event.latlng.lng]);
 }
 
-function majRectangle_hg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle, n){
-    var latlngs = creerLatLng(event.latlng,coin_bd.getLatLng(), n);
-    rectangle.setLatLngs(latlngs);
+function majRectangle_hg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+    rectangle.setBounds([[event.latlng.lat,event.latlng.lng],[coin_bd.getLatLng().lat,coin_bd.getLatLng().lng]]);
     coin_bg.setLatLng([event.latlng.lat, coin_bd.getLatLng().lng]);
     coin_hd.setLatLng([coin_bd.getLatLng().lat, event.latlng.lng]);
 }
 
-function creerLatLng(latlng1, latlng2, n) {
-    //a factoriser!!!!!!
-    var diffLat = latlng1.lat - latlng2.lat;
-    var diffLng = latlng1.lng - latlng2.lng;
-    var latlngs = [latlng1];
-    for (let i = 0; i < n; i++) {
-        latlngs.push([latlng1.lat, latlng1.lng-(diffLng/n*i)]);
-    }
-    for (let i = 0; i < n; i++) {
-        latlngs.push([latlng1.lat-diffLat/n*i, latlng2.lng]);
-    }
-    for (let i = 0; i < n; i++) {
-        latlngs.push([latlng2.lat, latlng2.lng+diffLng/n*i]);
-    }
-    for (let i = 0; i <= n; i++) {
-        latlngs.push([latlng2.lat+diffLat/n*i, latlng1.lng]);
-    }
-    return(latlngs)
-}
 
-var boite = rectangleInt(55.924586, 20.467774,30.876607, 0.699219);
-boite.addTo(mymap);
+
+
+//test extension de leaflet 
+//Fonctionne quand l'extension est au même endroit que là ou on appelle le construction
+//Créer un script pour mettre le code
+
+
+
+var salut = new rectangleGeo([[55.924586, 20.467774],[30.876607, 0.699219]]);
+salut.addTo(mymap);
+
+var hello = rectangleInt([[50.924586, 20.467774],[30.876607, 0.699219]]);
+hello.addTo(mymap);

@@ -15,7 +15,8 @@
     integrity="sha512-5hu8xzx09aoq4eHRCNLXRAmwYNgsMzBSLj02kPAaD48G03otgNf7PIOJaHlchkK2kfTAMhO3oaTxX5HgniXb2g=="
     crossorigin=""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.6.3/proj4.js"></script>
-    <script src="lib/proj4leaflet.js"></script>
+    <script src="../../lib/proj4leaflet.js"></script>
+    
   </head>
 
   <body>
@@ -42,5 +43,6 @@
     </div>
 
     </form>
-    <script type="text/javascript" src="js/rectangle.js"></script>
+    <script src="js/rectangleGeo.js"></script>
+    <script type="text/javascript" src="js/rectangle2.js"></script>
   </body>
