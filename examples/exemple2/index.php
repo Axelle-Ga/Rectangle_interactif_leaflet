@@ -43,5 +43,6 @@
     </div>
     
     <script src="../../src/rectangleGeo.js"></script>
+    <script src="../../src/rectangleGeoInt.js"></script>
     <script type="text/javascript" src="carte.js"></script>
   </body>
