@@ -16,7 +16,7 @@ Le plugin RectangleGeoInt.js permet de tracer ce type de rectangle avec des inte
 
 Pour l'instant le code ne fonctionne pas comme un véritable plugin afin d'utiliser les fonctions ajouter le lien vers les scripts dans le body de votre page.
   
-Pour créer des rectangles géodésiques sans interaction pré-codé ajouter le script rectangleGeo.js :
+Pour créer des rectangles géodésiques sans interaction ajouter le script rectangleGeo.js :
   
 ```html
 	<script src="../../src/rectangleGeo.js"></script>
@@ -31,5 +31,18 @@ Pour créer des rectangles géodésiques intéractifs ajouter le script rectangl
 	<script src="../../src/rectangleGeoInt.js"></script>
 ```
 
+Dans votre script js appeler rectangleGéo(liste_coord) ou rectangleInt(liste_coord) pour créer respectivement un rectangle géodésique et un rectangle géodésique intéractif.
+Où liste_coord est la liste de coordonnée des deux points de définition du rectangle.
+
+```javascript
+var rect1 = rectangleGeo([[51.1564,-5.1084],[41.1842,10.0195]])
+```
+
+```javascript
+var rect1 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]])
+```
+
 
 # Démo
+
+A venir. Cf example.
