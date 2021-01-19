@@ -44,18 +44,6 @@ function initMap(){
     }
     ).setView([50.1210604, -3.021240],3);
     
-    var PlanIGN = L.tileLayer('https://wxs.ign.fr/{ignApiKey}/geoportail/wmts?'+
-            '&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM'+
-            '&LAYER={ignLayer}&STYLE={style}&FORMAT={format}'+
-            '&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}',
-            {
-	            ignApiKey: 'choisirgeoportail',
-	            ignLayer: 'GEOGRAPHICALGRIDSYSTEMS.FRANCERASTER.L93',
-	            style: 'normal',
-	            format: 'image/jpeg',
-	            service: 'WMTS',
-	            attribution: '&copy; <a href="http://www.ign.fr/">IGN</a>'
-        }).addTo(mymap2); // ou map.addLayer(lyr);
 
     //Initialisation de la carte 1 avec un scr 3857 (Webmercator)
     mymap3 = L.map('map3',
@@ -78,13 +66,7 @@ function initMap(){
         crs : crs
     }
     ).setView([50.1210604, -3.021240],3);
-    L.tileLayer.wms('https://geodatatest.havochvatten.se/geoservices/ows', {
-	layers: 'hav-bakgrundskartor:hav-grundkarta',
-	format: 'image/png',
-	maxZoom: 14,
-	minZoom: 0,
-	attribution: '&copy; OpenStreetMap contributors <a href="https://www.havochvatten.se/kunskap-om-vara-vatten/kartor-och-geografisk-information/karttjanster.html">Havs- och vattenmyndigheten (Swedish Agency for Marine and Water Management)</a>'
-}).addTo(mymap4);
+
     
 }
 
