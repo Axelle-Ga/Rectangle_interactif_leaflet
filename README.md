@@ -14,7 +14,7 @@ Le plugin RectangleGeoInt.js permet de tracer ce type de rectangle avec des inte
 
 # Utilisation
 
-Pour l'instant le code ne fonctionne pas comme un véritable plugin afin d'utiliser les fonctions ajouter le lien vers les scripts dans le body de votre page.
+Afin d'utiliser les fonctions ajouter le lien vers les scripts dans le body de votre page.
   
 Pour créer des rectangles géodésiques sans interaction ajouter le script rectangleGeo.js :
   
@@ -45,4 +45,6 @@ var rect1 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]])
 
 # Démo
 
-A venir. Cf example.
+Vous pouvez trouvez un demo du plugin sur cette [page](https://axelle-ga.github.io/Rectangle_interactif_leaflet/) où le même rectangle est affiché dans des projections différentes.
+
+https://axelle-ga.github.io/Rectangle_interactif_leaflet/
