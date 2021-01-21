@@ -10,20 +10,33 @@ var LAMB93 = new L.Proj.CRS('IGNF:LAMB93');
 var utm20 = new L.Proj.CRS('EPSG:4559',
     '+proj=utm +zone=20 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
 
+var crs = new L.Proj.CRS('EPSG:3006',
+'+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
+{
+    resolutions: [
+        8192, 4096, 2048, 1024, 512, 256, 128,
+        64, 32, 16, 8, 4, 2, 1, 0.5
+    ],
+    origin: [0, 0]
+});
+
 //Initialisation de la carte 1 avec un scr 3857 (Webmercator)
 function initMap(){
 
     mymap1 = L.map('map1',
     ).setView([50.1210604, -3.021240],3);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        minZoom:1,
-        maxZoom: 18,
-        id: 'mapbox/satellite-v9',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYWdhaWdlIiwiYSI6ImNrZ2huODE5YjBnMGoyc3RldGZkZThxcHgifQ.Hwxwc-MYlZ01QTPAIFSloQ'
-    }).addTo(mymap1);
+    var PlanIGN = L.tileLayer('https://wxs.ign.fr/{ignApiKey}/geoportail/wmts?'+
+            '&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM'+
+            '&LAYER={ignLayer}&STYLE={style}&FORMAT={format}'+
+            '&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}',
+            {
+	            ignApiKey: 'choisirgeoportail',
+	            ignLayer: 'ORTHOIMAGERY.ORTHOPHOTOS',
+	            style: 'normal',
+	            format: 'image/jpeg',
+	            service: 'WMTS',
+	            attribution: '&copy; <a href="http://www.ign.fr/">IGN</a>'
+        }).addTo(mymap1);
 
     //Initialisation de la carte 2 avec un scr 2154 (Lambert 93)
     mymap2 = L.map('map2',{
@@ -31,37 +44,48 @@ function initMap(){
     }
     ).setView([50.1210604, -3.021240],3);
     
-    var lyr = L.geoportalLayer.WMTS({
-        layer: "GEOGRAPHICALGRIDSYSTEMS.MAPS",
-    }, { // leafletParams
-        opacity: 0.8
-    });
-    lyr.addTo(mymap2); // ou map.addLayer(lyr);
+    var PlanIGN = L.tileLayer('https://wxs.ign.fr/{ignApiKey}/geoportail/wmts?'+
+            '&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM'+
+            '&LAYER={ignLayer}&STYLE={style}&FORMAT={format}'+
+            '&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}',
+            {
+	            ignApiKey: 'choisirgeoportail',
+	            ignLayer: 'GEOGRAPHICALGRIDSYSTEMS.FRANCERASTER.L93',
+	            style: 'normal',
+	            format: 'image/jpeg',
+	            service: 'WMTS',
+	            attribution: '&copy; <a href="http://www.ign.fr/">IGN</a>'
+        }).addTo(mymap2); // ou map.addLayer(lyr);
 
     //Initialisation de la carte 1 avec un scr 3857 (Webmercator)
     mymap3 = L.map('map3',
     ).setView([50.1210604, -3.021240],3);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        minZoom:1,
-        maxZoom: 18,
-        id: 'mapbox/satellite-v9',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYWdhaWdlIiwiYSI6ImNrZ2huODE5YjBnMGoyc3RldGZkZThxcHgifQ.Hwxwc-MYlZ01QTPAIFSloQ'
-    }).addTo(mymap3);
+    var PlanIGN = L.tileLayer('https://wxs.ign.fr/{ignApiKey}/geoportail/wmts?'+
+            '&REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&TILEMATRIXSET=PM'+
+            '&LAYER={ignLayer}&STYLE={style}&FORMAT={format}'+
+            '&TILECOL={x}&TILEROW={y}&TILEMATRIX={z}',
+            {
+	            ignApiKey: 'choisirgeoportail',
+	            ignLayer: 'ORTHOIMAGERY.ORTHOPHOTOS',
+	            style: 'normal',
+	            format: 'image/jpeg',
+	            service: 'WMTS',
+	            attribution: '&copy; <a href="http://www.ign.fr/">IGN</a>'
+        }).addTo(mymap3);
     
-    mymap4 = L.map('map4',
+
+    mymap4 = L.map('map4',{
+        crs : crs
+    }
     ).setView([50.1210604, -3.021240],3);
-    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-        attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        minZoom:1,
-        maxZoom: 18,
-        id: 'mapbox/satellite-v9',
-        tileSize: 512,
-        zoomOffset: -1,
-        accessToken: 'pk.eyJ1IjoiYWdhaWdlIiwiYSI6ImNrZ2huODE5YjBnMGoyc3RldGZkZThxcHgifQ.Hwxwc-MYlZ01QTPAIFSloQ'
-    }).addTo(mymap4);
+    L.tileLayer.wms('https://geodatatest.havochvatten.se/geoservices/ows', {
+	layers: 'hav-bakgrundskartor:hav-grundkarta',
+	format: 'image/png',
+	maxZoom: 14,
+	minZoom: 0,
+	attribution: '&copy; OpenStreetMap contributors <a href="https://www.havochvatten.se/kunskap-om-vara-vatten/kartor-och-geografisk-information/karttjanster.html">Havs- och vattenmyndigheten (Swedish Agency for Marine and Water Management)</a>'
+}).addTo(mymap4);
+    
 }
 
 //Initialisation des quatre cartes
