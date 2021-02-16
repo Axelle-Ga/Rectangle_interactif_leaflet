@@ -32,15 +32,6 @@
       <div id = map2></div>
     </div>
     
-    <div id = carte3>
-      Systeme de coordonnées de référence : <span id = "scr3"></span>
-      <div id = map3></div>
-    </div>
-    
-    <div id = carte4>
-      Systeme de coordonnées de référence : <span id = "scr4"></span>
-      <div id = map4></div>
-    </div>
     
     <script src="../../src/rectangleGeo.js"></script>
     <script src="../../src/rectangleGeoInt.js"></script>
