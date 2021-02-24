@@ -35,7 +35,7 @@ Pour créer des rectangles géodésiques intéractifs ajouter le script rectangl
 ```
 
 Dans votre script js appeler rectangleGeo(liste_coord, options) ou rectangleInt(liste_coord, options) pour créer respectivement un rectangle géodésique et un rectangle géodésique intéractif.
-Où liste_coord est la liste de coordonnée des deux points de définition du rectangle, et options les options héritées de la classe Polygon de Leaflet (cf [documentation leaflet] (https://leafletjs.com/reference-1.7.1.html#polygon)).
+Où liste_coord est la liste de coordonnée des deux points de définition du rectangle, et options les options héritées de la classe Polygon de Leaflet (cf [documentation leaflet](https://leafletjs.com/reference-1.7.1.html#polygon)).
 
 ```javascript
 var rect1 = rectangleGeo([[51.1564,-5.1084],[41.1842,10.0195]])
@@ -45,7 +45,7 @@ var rect1 = rectangleGeo([[51.1564,-5.1084],[41.1842,10.0195]])
 var rect1 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]])
 ```
 
-**Attention** : les données leaflet sont toujours en EPSG:3857 bien que l'affichage puisse utiliser un autre système de coordonnées. Il faut donc rentrer les coordonnées du rectangle projetées en Web-Mercator. 
+**Attention** : les données leaflet sont toujours en EPSG:3857 bien que l'affichage puisse utiliser un autre système de coordonnées. Il faut donc rentrer les **coordonnées du rectangle projetées en Web-Mercator**. 
 
 # Démo
 
