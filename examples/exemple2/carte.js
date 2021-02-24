@@ -1,30 +1,6 @@
 var mymap1;
 var mymap2;
-var mymap3;
-var mymap4;
 
-//Définition du scr Lambert 93 (Conique conforme)
-var LAMB93 = new L.Proj.CRS('IGNF:LAMB93');
-
-//Définition du scr utm20
-var utm20 = new L.Proj.CRS('EPSG:4559',
-    '+proj=utm +zone=20 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
-
-    //c'est pas une mercator mais flemme c'est itrf2008 à supprimer
-var mercator_oblique = new L.Proj.CRS("EPSG:4896",
-"+proj=geocent +ellps=GRS80 +units=m +no_defs");
-
-//Def crs epsg 3006
-var crs = new L.Proj.CRS('EPSG:3006',
-'+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
-
-{
-    resolutions: [
-        8192, 4096, 2048, 1024, 512, 256, 128,
-        64, 32, 16, 8, 4, 2, 1, 0.5
-    ],
-    origin: [0, 0]
-});
 
 //Initialisation de la carte 1 avec un scr 3857 (Webmercator)
 function initMap(){
@@ -46,16 +22,15 @@ function initMap(){
 
     //Initialisation de la carte 2 avec un scr 2154 (Lambert 93)
     mymap2 = L.map('map2',{
-        crs:L.geoportalCRS.EPSG2154,
-        minZoom: 3
+        crs:L.geoportalCRS.EPSG2154
     }
     ).setView([50.1210604, -3.021240],3);
     
     var wms = L.tileLayer.wms('http://localhost:8080/geoserver/test_monde/wms', {
         layers: 'test_monde:MondeGadmLambert93',
-        transparent: true,
+        transparent: true
     });
-    
+
     wms.addTo(mymap2); // ou map.addLayer(lyr);
     
     
@@ -79,3 +54,29 @@ var rect2 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]]);
 //Ajout des rectangles géodésiques intéractif à sa carte respective
 rect1.addTo(mymap1);
 rect2.addTo(mymap2);
+
+rect1.addEventListener("click", function(e){
+    console.log(rect1.getBounds());
+})
+
+rect2.addEventListener("click", function(e){
+    console.log(rect2.getBounds());
+})
+
+//Lien entre les deux cartes si on zoom sur l'une on zoom sur l'autre
+mymap2.on("zoom", function onZoom2(){
+    mymap1.setView(mymap2.getCenter(),mymap2.getZoom());
+})
+
+mymap1.on("zoom", function onZoom1(){
+    mymap2.setView(mymap1.getCenter(),mymap1.getZoom());
+})
+
+//Lien entre les deux cartes si on se déplace sur l'une on se déplace sur l'autre
+mymap2.on("drag", function onDrag2(){
+    mymap1.setView(mymap2.getCenter(),mymap2.getZoom());
+})
+
+mymap1.on("drag", function onDrag1(){
+    mymap2.setView(mymap1.getCenter(),mymap1.getZoom());
+})
