@@ -9,7 +9,7 @@ Par exemple dans la projection WebMercotor on obtient un véritable rectangle :
 Mais en conique conforme comme en Lambert 93 il serait incurvé :
 ![Alt text](img/rectangleGeo_lambert93.PNG?raw=true "Rectangle Géodésique en Lambert 93")
   
-Voici un exemple avec deux rectangles identiques représentés dans deux projections différentes (que vous pouvez retrouver dans exemples/exemple2) :
+Voici un exemple avec deux rectangles identiques représentés dans deux projections différentes (aussi présent dans exemples/exemple2) :
 ![Alt text](img/rectanglegeo_mercator_lambert93.PNG?raw=true "Rectangle Géodésique en Lambert 93")
   
 Le plugin RectangleGeo.js permet de tracer ce type de rectangle sur un carte Leaflet.
@@ -17,7 +17,7 @@ Le plugin RectangleGeoInt.js permet de tracer ce type de rectangle avec des inte
 
 # Utilisation
 
-Afin d'utiliser les fonctions ajouter le lien vers les scripts dans le body de votre page.
+Afin d'utiliser les fonctions ajouter le lien vers les scripts dans le body de la page.
   
 Pour créer des rectangles géodésiques sans interaction ajouter le script rectangleGeo.js :
   
@@ -34,7 +34,7 @@ Pour créer des rectangles géodésiques intéractifs ajouter le script rectangl
 	<script src="../../src/rectangleGeoInt.js"></script>
 ```
 
-Dans votre script js appeler rectangleGeo(liste_coord, options) ou rectangleInt(liste_coord, options) pour créer respectivement un rectangle géodésique et un rectangle géodésique intéractif.
+Dans le script js appeler rectangleGeo(liste_coord, options) ou rectangleInt(liste_coord, options) pour créer respectivement un rectangle géodésique et un rectangle géodésique intéractif.
 Où liste_coord est la liste de coordonnée des deux points de définition du rectangle, et options les options héritées de la classe Polygon de Leaflet (cf [documentation leaflet](https://leafletjs.com/reference-1.7.1.html#polygon)).
 
 ```javascript
