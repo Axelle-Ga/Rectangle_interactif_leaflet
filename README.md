@@ -8,13 +8,16 @@ Par exemple dans la projection WebMercotor on obtient un véritable rectangle :
 
 Mais en conique conforme comme en Lambert 93 il serait incurvé :
 ![Alt text](img/rectangleGeo_lambert93.PNG?raw=true "Rectangle Géodésique en Lambert 93")
-
+  
+Voici un exemple avec deux rectangles identiques représentés dans deux projections différentes (aussi présent dans exemples/exemple2) :
+![Alt text](img/rectanglegeo_mercator_lambert93.PNG?raw=true "Rectangle Géodésique en Lambert 93")
+  
 Le plugin RectangleGeo.js permet de tracer ce type de rectangle sur un carte Leaflet.
-Le plugin RectangleGeoInt.js permet de tracer ce type de rectangle avec des interaction pour pouvoir le modifier en l'étirant.
+Le plugin RectangleGeoInt.js permet de tracer ce type de rectangle avec des interactions pour pouvoir le modifier en l'étirant.
 
 # Utilisation
 
-Afin d'utiliser les fonctions ajouter le lien vers les scripts dans le body de votre page.
+Afin d'utiliser les fonctions ajouter le lien vers les scripts dans le body de la page.
   
 Pour créer des rectangles géodésiques sans interaction ajouter le script rectangleGeo.js :
   
@@ -24,15 +27,15 @@ Pour créer des rectangles géodésiques sans interaction ajouter le script rect
 
 
   
-Pour créer des rectangles géodésiques intéractifs ajouter le script rectangleGeoInt.js :
+Pour créer des rectangles géodésiques intéractifs ajouter le script rectangleGeoInt.js en plus du script rectangleGeo.js:
   
 ```html
 	<script src="../../src/rectangleGeo.js"></script>
 	<script src="../../src/rectangleGeoInt.js"></script>
 ```
 
-Dans votre script js appeler rectangleGéo(liste_coord) ou rectangleInt(liste_coord) pour créer respectivement un rectangle géodésique et un rectangle géodésique intéractif.
-Où liste_coord est la liste de coordonnée des deux points de définition du rectangle.
+Dans le script js appeler rectangleGeo(liste_coord, options) ou rectangleInt(liste_coord, options) pour créer respectivement un rectangle géodésique et un rectangle géodésique intéractif.
+Où liste_coord est la liste de coordonnée des deux points de définition du rectangle, et options les options héritées de la classe Polygon de Leaflet (cf [documentation leaflet](https://leafletjs.com/reference-1.7.1.html#polygon)).
 
 ```javascript
 var rect1 = rectangleGeo([[51.1564,-5.1084],[41.1842,10.0195]])
@@ -42,9 +45,10 @@ var rect1 = rectangleGeo([[51.1564,-5.1084],[41.1842,10.0195]])
 var rect1 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]])
 ```
 
+**Attention** : les données leaflet sont toujours en EPSG:3857 bien que l'affichage puisse utiliser un autre système de coordonnées. Il faut donc rentrer les **coordonnées du rectangle projetées en Web-Mercator**. 
 
 # Démo
 
-Vous pouvez trouvez un demo du plugin sur cette [page](https://axelle-ga.github.io/Rectangle_interactif_leaflet/) où le même rectangle est affiché dans des projections différentes.
+Vous pouvez trouver une demo du plugin sur cette [page](https://axelle-ga.github.io/Rectangle_interactif_leaflet/) où le même rectangle est affiché dans des projections différentes.
 
 https://axelle-ga.github.io/Rectangle_interactif_leaflet/

@@ -1,4 +1,4 @@
-//Création de la classe RectangleGéo qui represent un rectangle suivant les méridien et les parallèles
+//Création de la classe RectangleGeo qui represente un rectangle suivant les méridiens et les parallèles
 //Elle hérite de L.Polygon qui représente des polygones leaflet
 
 L.Polygon.RectangleGeo = L.Polygon.extend({
@@ -13,7 +13,7 @@ L.Polygon.RectangleGeo = L.Polygon.extend({
 		L.Polygon.prototype.initialize.call(this, this._boundsToLatLngs(latLngBounds), options);
     },
     
-    //Modification du rectangle en redéfinissant ses point de définition
+    //Modification du rectangle en redéfinissant ses points de définition
     setBounds: function (latLngBounds) {
 		return this.setLatLngs(this._boundsToLatLngs(latLngBounds));
     },
@@ -28,7 +28,6 @@ L.Polygon.RectangleGeo = L.Polygon.extend({
 
 
 function creerLatLng_bounds(bounds, n = 500) {
-    //a factoriser!!!!!!
     //Calcul les coordonnées des points représentant le rectangle
     //n représente le nombre de points qui vont représenter la ligne
 
@@ -40,6 +39,7 @@ function creerLatLng_bounds(bounds, n = 500) {
 
     //Calcul de la différence de latitude
     var diffLat = latlng1_lat - latlng2_lat;
+    
     //Calcul de la différence de longitude
     var diffLng = latlng1_lng - latlng2_lng;
 

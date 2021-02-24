@@ -43,6 +43,7 @@
     </div>
 
     </form>
-    <script src="js/rectangleGeo.js"></script>
-    <script type="text/javascript" src="js/rectangle2.js"></script>
+    <script src="../../src/rectangleGeo.js"></script>
+    <script src="../../src/rectangleGeoInt.js"></script>
+    <script type="text/javascript" src="js/carte.js"></script>
   </body>

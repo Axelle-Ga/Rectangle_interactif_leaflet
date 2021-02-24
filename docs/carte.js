@@ -3,13 +3,8 @@ var mymap2;
 var mymap3;
 var mymap4;
 
-//Définition du scr Lambert 93 (Conique conforme)
-var LAMB93 = new L.Proj.CRS('IGNF:LAMB93');
 
-//Définition du scr utm20
-var utm20 = new L.Proj.CRS('EPSG:4559',
-    '+proj=utm +zone=20 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs');
-
+//Définition du scr EPSG3006
 var crs = new L.Proj.CRS('EPSG:3006',
 '+proj=utm +zone=33 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs',
 {
@@ -61,7 +56,7 @@ function initMap(){
 	            attribution: '&copy; <a href="http://www.ign.fr/">IGN</a>'
         }).addTo(mymap3);
     
-
+    //Initialisation de la carte 1 avec un scr 3006 (Système suédois)
     mymap4 = L.map('map4',{
         crs : crs
     }
@@ -76,20 +71,20 @@ initMap();
 
 
 
-//Affiche le systeme de coordonnées de référence de chaque carte
+//Affiche le système de coordonnées de référence de chaque carte
 document.getElementById('scr1').innerHTML = mymap1.options.crs.code;
 document.getElementById('scr2').innerHTML = mymap2.options.crs.code;
 document.getElementById('scr3').innerHTML = mymap3.options.crs.code;
 document.getElementById('scr4').innerHTML = mymap4.options.crs.code;
 
 
-//Création de quatre même rectangle geodésique intéractif
+//Création de quatre même rectangle géodésique intéractif
 var rect1 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]]);
 var rect2 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]]);
 var rect3 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]]);
 var rect4 = rectangleInt([[51.1564,-5.1084],[41.1842,10.0195]]);
 
-//Ajout des rectangles géodésiques intéractif à sa carte respective
+//Ajout des rectangles géodésiques intéractifs à leur carte respective
 rect1.addTo(mymap1);
 rect2.addTo(mymap2);
 rect3.addTo(mymap3);

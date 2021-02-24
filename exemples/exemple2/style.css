@@ -1,7 +1,7 @@
 body{
     display:grid;
     grid-template-columns: 50% auto;
-    grid-template-rows: auto 300px 300px;
+    grid-template-rows: 100px auto;
 }
 
 #titre{
@@ -11,10 +11,12 @@ body{
     margin: 20px;
 }
 
-#map1, #map2, #map3, #map4{
-    height: 250px;
+#map1, #map2{
+    height: 500px;
     width: 100%;
     border-radius: 10px;
+    border: 1px solid;
+    margin-top: 10px;
 }
 
 #carte1{
@@ -26,17 +28,5 @@ body{
 #carte2{
     margin: 10px;
     grid-row: 2;
-    grid-column: 2;
-}
-
-#carte3{
-    margin: 10px;
-    grid-row: 3;
-    grid-column: 1;
-}
-
-#carte4{
-    margin: 10px;
-    grid-row: 3;
     grid-column: 2;
 }
