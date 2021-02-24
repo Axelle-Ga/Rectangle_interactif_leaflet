@@ -11,10 +11,8 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-
     <script data-key="choisirgeoportail" src="../../lib/GpPluginLeaflet-2.1.7/GpPluginLeaflet.js"></script>
     <link data-key="choisirgeoportail" rel="stylesheet" href="../../lib/GpPluginLeaflet-2.1.7/GpPluginLeaflet.css" />
-    
   </head>
 
   <body>
@@ -23,12 +21,12 @@
     </div>
 
     <div id = carte1>
-      Systeme de coordonnées de référence : <span id = "scr1"></span>
+      Système de coordonnées de référence : <span id = "scr1"></span>
       <div id = map1></div>
     </div>
 
     <div id = carte2>
-      Systeme de coordonnées de référence : <span id = "scr2"></span>
+      Système de coordonnées de référence : <span id = "scr2"></span>
       <div id = map2></div>
     </div>
     
