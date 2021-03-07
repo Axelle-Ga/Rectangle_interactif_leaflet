@@ -11,10 +11,10 @@ function rectangleInt(bounds, options) {
     var geoboite = couche(rectangle, coins[0], coins[1], coins[2],coins[3]);
 
     //Ajout des écouteurs pour modifier le rectangle en déplaçant les markers aux coins
-    coins[0].addEventListener("drag",function(event) {majRectangle_hg(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
-    coins[1].addEventListener("drag",function(event) {majRectangle_bg(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
-    coins[2].addEventListener("drag",function(event) {majRectangle_hd(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
-    coins[3].addEventListener("drag",function(event) {majRectangle_bd(event, coins[0], coins[1], coins[2], coins[3], rectangle)});
+    coins[0].addEventListener("drag",function(event) {majRectangle_hg(event, coins[1], coins[2], coins[3], rectangle)});
+    coins[1].addEventListener("drag",function(event) {majRectangle_bg(event, coins[0], coins[2], coins[3], rectangle)});
+    coins[2].addEventListener("drag",function(event) {majRectangle_hd(event, coins[0], coins[1], coins[3], rectangle)});
+    coins[3].addEventListener("drag",function(event) {majRectangle_bd(event, coins[0], coins[1], coins[2], rectangle)});
     
     //On renvoie l'objet ainsi créé
     return (geoboite);
@@ -57,7 +57,7 @@ function couche(rectangle, coin_hg, coin_bg, coin_hd,coin_bd) {
 
 
 
-function majRectangle_bd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+function majRectangle_bd(event, coin_hg, coin_bg, coin_hd, rectangle){
     //Mise à jour du rectangle quand le coin bas droit est déplacé
 
     //Modification du rectangle avec ses nouvelles coordonnées
@@ -68,7 +68,7 @@ function majRectangle_bd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
     coin_hd.setLatLng([coin_hg.getLatLng().lat, event.latlng.lng]);
 }
 
-function majRectangle_hd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+function majRectangle_hd(event, coin_hg, coin_bg,coin_bd, rectangle){
     //Mise à jour du rectangle quand le coin haut droit est déplacé
 
     //Modification du rectangle avec ses nouvelles coordonnées
@@ -79,7 +79,7 @@ function majRectangle_hd(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
     coin_hg.setLatLng([coin_bg.getLatLng().lat, event.latlng.lng]);
 }
 
-function majRectangle_bg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+function majRectangle_bg(event, coin_hg, coin_hd,coin_bd, rectangle){
     //Mise à jour du rectangle quand le coin bas gauche est déplacé
 
     //Modification du rectangle avec ses nouvelles coordonnées
@@ -90,7 +90,7 @@ function majRectangle_bg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
     coin_hg.setLatLng([coin_hd.getLatLng().lat, event.latlng.lng]);
 }
 
-function majRectangle_hg(event, coin_hg, coin_bg, coin_hd,coin_bd, rectangle){
+function majRectangle_hg(event, coin_bg, coin_hd,coin_bd, rectangle){
     //Mise à jour du rectangle quand le coin haut gauche est déplacé
 
     //Modification du rectangle avec ses nouvelles coordonnées
