@@ -48,8 +48,8 @@ document.getElementById('scr2').innerHTML = mymap2.options.crs.code;
 
 
 //Création de deux même rectangle géodésique intéractif contenant l'Afrique
-var rect1 = rectangleInt([[38.274156526143294,52.38261870670867],[-35.461050715344605,-18.63223112012598]]);
-var rect2 = rectangleInt([[38.274156526143294,52.38261870670867],[-35.461050715344605,-18.63223112012598]]);
+var rect1 = rectangleInt([[38.274156526143294,52.38261870670867],[-35.461050715344605,-18.63223112012598]],{color:"red"});
+var rect2 = rectangleInt([[38.274156526143294,52.38261870670867],[-35.461050715344605,-18.63223112012598]],{color:"red"});
 
 //Ajout des rectangles géodésiques intéractif à sa carte respective
 rect1.addTo(mymap1);
